@@ -17,7 +17,6 @@
 package com.android.dialer.lookup;
 
 import com.android.dialer.phonenumbercache.ContactInfo;
-import com.android.dialer.lookup.google.GoogleForwardLookup;
 import com.android.dialer.lookup.openstreetmap.OpenStreetMapForwardLookup;
 
 import android.content.Context;
@@ -35,9 +34,7 @@ public abstract class ForwardLookup {
         if (INSTANCE == null || !isInstance(provider)) {
             Log.d(TAG, "Chosen forward lookup provider: " + provider);
 
-            if (provider.equals(LookupSettings.FLP_GOOGLE)) {
-                INSTANCE = new GoogleForwardLookup(context);
-            } else if (provider.equals(LookupSettings.FLP_OPENSTREETMAP)) {
+            if (provider.equals(LookupSettings.FLP_OPENSTREETMAP)) {
                 INSTANCE = new OpenStreetMapForwardLookup(context);
             }
         }
@@ -46,10 +43,7 @@ public abstract class ForwardLookup {
     }
 
     private static boolean isInstance(String provider) {
-        if (provider.equals(LookupSettings.FLP_GOOGLE)
-                && INSTANCE instanceof GoogleForwardLookup) {
-            return true;
-        } else if (provider.equals(LookupSettings.FLP_OPENSTREETMAP)
+        if (provider.equals(LookupSettings.FLP_OPENSTREETMAP)
                 && INSTANCE instanceof OpenStreetMapForwardLookup) {
             return true;
         } else {
